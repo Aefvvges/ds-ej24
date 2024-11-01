@@ -13,7 +13,8 @@ $json = file_get_contents('php://input',true);
 $req = json_decode($json);
 
 $resp= new AgregarRespuesta();
-$resp->Mensaje = "";
+$resp->IsOk = true;
+
 if ($req->Titular->Direccion == null){
     $resp->IsOk = false;
     $resp->Mensaje .= " La dirección es obligatoria.";
@@ -25,11 +26,10 @@ if ($req->Titular->NroDocumento == null){
 if ($req->Titular->ApellidoNombre == null){
     $resp->IsOk = false;
     $resp->Mensaje .= " El apellido es obligatorio.";
-} else {
-    $resp->IsOk = true;
-    $resp->Mensaje = "Titular agregado correctamente";
 }
 
-
+if($resp->IsOk == True){
+    $resp->Mensaje = "Titular agregado correctamente";
+}
 
 echo json_encode ($resp);
